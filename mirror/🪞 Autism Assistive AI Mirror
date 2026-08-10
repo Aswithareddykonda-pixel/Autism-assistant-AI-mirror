@@ -1,0 +1,28 @@
+1. Project Overview
+
+The Autism Assistive AI Mirror is an AI-powered assistive application designed to support individuals who may benefit from visual and structured assistance during daily activities.
+
+The system uses a webcam and Python to create a "smart mirror" interface that can:
+
+Detect whether a face is visible
+Provide visual communication prompts
+Display daily routines
+Give calming/breathing reminders
+Show simple emotion-related prompts without making diagnostic claims
+Provide positive reinforcement
+Display personalized messages
+              Webcam
+                 ↓
+        Face Detection
+                 ↓
+       ┌─────────┴─────────┐
+       ↓                   ↓
+   User Present        No User
+       ↓                   ↓
+ Assistive UI        Standby Mode
+       ↓
+ ┌─────┼──────────┐
+ ↓     ↓          ↓
+Routine Prompt  Calm Mode  Communication
+       ↓
+     Mirror Display

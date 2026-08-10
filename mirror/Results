@@ -1,0 +1,18 @@
+The prototype demonstrates four major capabilities:
+
+Feature	Result
+Face Detection	Successfully detects a visible face
+Daily Routine	Displays structured routine
+Calm Mode	Provides breathing guidance
+Communication	Provides selectable communication phrases
+Mirror Interface	Provides a simple visual assistive interface
+Sample Result
+User detected
+       ↓
+Assistive interface activated
+       ↓
+Routine / Communication / Calm Mode
+       ↓
+User selects required assistance
+       ↓
+Visual guidance displayed

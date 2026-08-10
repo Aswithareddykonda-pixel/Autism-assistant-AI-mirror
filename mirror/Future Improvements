@@ -1,0 +1,113 @@
+1. AI-Based Personalized Routines
+
+Instead of a fixed routine:
+
+Wake Up
+↓
+Breakfast
+↓
+School
+
+the system could learn the user's preferred schedule and provide personalized reminders.
+
+2. Voice Assistant
+
+Add speech recognition:
+
+User:
+"I need a break."
+
+        ↓
+
+AI Mirror
+
+        ↓
+
+"Okay. Let's take a break."
+
+Possible technologies:
+
+SpeechRecognition
+pyttsx3
+Whisper
+3. Object Recognition
+
+The mirror could recognize common objects such as:
+
+Book
+Toothbrush
+Bag
+Bottle
+Food
+Clothes
+
+and provide context-sensitive prompts.
+
+4. Visual Schedule
+
+Instead of text:
+
+Breakfast
+School
+Lunch
+Homework
+Sleep
+
+use large icons/images for easier visual understanding.
+
+5. Personalized Communication Board
+
+Add customizable buttons:
+
+😊 Happy
+
+😟 Worried
+
+🆘 Need Help
+
+⏸ Need Break
+
+💧 Need Water
+
+🍎 Need Food
+
+The user or caregiver could configure these.
+
+6. Emotion Recognition — Carefully
+
+A future version could experiment with facial-expression recognition, but it should be presented as optional, uncertain assistance, not as a reliable measure of someone's internal emotional state.
+
+For example:
+
+Possible facial expression detected:
+"Looks like a smile"
+
+Would you like:
+[Yes] [No] [Not sure]
+
+This user-confirmation approach is safer than telling the person what they are feeling.
+
+7. Caregiver Dashboard
+
+Add a dashboard where authorized caregivers can configure:
+
+User Profile
+Daily Schedule
+Preferred Activities
+Communication Buttons
+Reminder Times
+Calm Activities
+
+Avoid collecting unnecessary personal data.
+
+8. Mobile Application
+
+The project could eventually be converted into:
+
+Python AI Backend
+       ↓
+REST API
+       ↓
+Android / Web Application
+       ↓
+Smart Mirror

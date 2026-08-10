@@ -1,0 +1,384 @@
+import cv2
+import tkinter as tk
+from tkinter import messagebox
+from datetime import datetime
+import threading
+import time
+
+
+class AssistiveMirror:
+
+    def __init__(self, root):
+
+        self.root = root
+        self.root.title("Autism Assistive AI Mirror")
+        self.root.geometry("1000x700")
+        self.root.configure(bg="black")
+
+        self.running = True
+        self.cap = cv2.VideoCapture(0)
+
+        # Load face detector
+        self.face_detector = cv2.CascadeClassifier(
+            cv2.data.haarcascades +
+            "haarcascade_frontalface_default.xml"
+        )
+
+        # Title
+        self.title = tk.Label(
+            root,
+            text="AUTISM ASSISTIVE AI MIRROR",
+            font=("Arial", 26, "bold"),
+            fg="white",
+            bg="black"
+        )
+
+        self.title.pack(pady=15)
+
+        # Camera display
+        self.camera_label = tk.Label(
+            root,
+            bg="black"
+        )
+
+        self.camera_label.pack()
+
+        # Status
+        self.status = tk.Label(
+            root,
+            text="Initializing...",
+            font=("Arial", 18),
+            fg="white",
+            bg="black"
+        )
+
+        self.status.pack(pady=10)
+
+        # Time
+        self.time_label = tk.Label(
+            root,
+            font=("Arial", 16),
+            fg="white",
+            bg="black"
+        )
+
+        self.time_label.pack()
+
+        # Buttons
+        button_frame = tk.Frame(
+            root,
+            bg="black"
+        )
+
+        button_frame.pack(pady=15)
+
+        tk.Button(
+            button_frame,
+            text="Daily Routine",
+            command=self.show_routine,
+            font=("Arial", 14),
+            width=15
+        ).grid(row=0, column=0, padx=5)
+
+        tk.Button(
+            button_frame,
+            text="Calm Mode",
+            command=self.calm_mode,
+            font=("Arial", 14),
+            width=15
+        ).grid(row=0, column=1, padx=5)
+
+        tk.Button(
+            button_frame,
+            text="Communication",
+            command=self.communication,
+            font=("Arial", 14),
+            width=15
+        ).grid(row=0, column=2, padx=5)
+
+        tk.Button(
+            button_frame,
+            text="Exit",
+            command=self.close,
+            font=("Arial", 14),
+            width=15
+        ).grid(row=0, column=3, padx=5)
+
+        self.update_time()
+        self.update_camera()
+
+    # ----------------------------------
+    # Time Display
+    # ----------------------------------
+
+    def update_time(self):
+
+        current_time = datetime.now().strftime(
+            "%d-%m-%Y  %H:%M:%S"
+        )
+
+        self.time_label.config(
+            text=current_time
+        )
+
+        self.root.after(
+            1000,
+            self.update_time
+        )
+
+    # ----------------------------------
+    # Camera + Face Detection
+    # ----------------------------------
+
+    def update_camera(self):
+
+        if not self.running:
+            return
+
+        ret, frame = self.cap.read()
+
+        if ret:
+
+            gray = cv2.cvtColor(
+                frame,
+                cv2.COLOR_BGR2GRAY
+            )
+
+            faces = self.face_detector.detectMultiScale(
+                gray,
+                scaleFactor=1.1,
+                minNeighbors=5,
+                minSize=(60, 60)
+            )
+
+            for (x, y, w, h) in faces:
+
+                cv2.rectangle(
+                    frame,
+                    (x, y),
+                    (x + w, y + h),
+                    (255, 255, 255),
+                    2
+                )
+
+                cv2.putText(
+                    frame,
+                    "Person Detected",
+                    (x, y - 10),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.7,
+                    (255, 255, 255),
+                    2
+                )
+
+            if len(faces) > 0:
+
+                self.status.config(
+                    text="Welcome! You are visible in the mirror."
+                )
+
+            else:
+
+                self.status.config(
+                    text="Waiting for the user..."
+                )
+
+            # Convert image for Tkinter
+            frame = cv2.cvtColor(
+                frame,
+                cv2.COLOR_BGR2RGB
+            )
+
+            image = cv2.resize(
+                frame,
+                (700, 450)
+            )
+
+            photo = cv2.cvtColor(
+                image,
+                cv2.COLOR_RGB2BGR
+            )
+
+            photo = cv2.cvtColor(
+                photo,
+                cv2.COLOR_BGR2RGB
+            )
+
+            img = tk.PhotoImage(
+                data=cv2.imencode(
+                    ".ppm",
+                    photo
+                )[1].tobytes()
+            )
+
+            self.camera_label.configure(
+                image=img
+            )
+
+            self.camera_label.image = img
+
+        self.root.after(
+            30,
+            self.update_camera
+        )
+
+    # ----------------------------------
+    # Daily Routine
+    # ----------------------------------
+
+    def show_routine(self):
+
+        routine = """
+DAILY ROUTINE
+
+1. Wake Up
+2. Brush Teeth
+3. Have Breakfast
+4. Go to School / Work
+5. Lunch
+6. Relax
+7. Homework / Activity
+8. Dinner
+9. Prepare for Sleep
+"""
+
+        messagebox.showinfo(
+            "Daily Routine",
+            routine
+        )
+
+    # ----------------------------------
+    # Calm Mode
+    # ----------------------------------
+
+    def calm_mode(self):
+
+        calm_window = tk.Toplevel(
+            self.root
+        )
+
+        calm_window.title(
+            "Calm Mode"
+        )
+
+        calm_window.geometry(
+            "500x350"
+        )
+
+        calm_window.configure(
+            bg="black"
+        )
+
+        label = tk.Label(
+            calm_window,
+            text="CALM MODE",
+            font=("Arial", 26, "bold"),
+            fg="white",
+            bg="black"
+        )
+
+        label.pack(pady=30)
+
+        instruction = tk.Label(
+            calm_window,
+            text="Take a slow breath.\n\n"
+                 "Breathe in for 4 seconds.\n"
+                 "Hold for 4 seconds.\n"
+                 "Breathe out for 4 seconds.",
+            font=("Arial", 18),
+            fg="white",
+            bg="black",
+            justify="center"
+        )
+
+        instruction.pack(pady=20)
+
+        tk.Button(
+            calm_window,
+            text="Close",
+            command=calm_window.destroy,
+            font=("Arial", 14)
+        ).pack(pady=20)
+
+    # ----------------------------------
+    # Communication Support
+    # ----------------------------------
+
+    def communication(self):
+
+        communication_window = tk.Toplevel(
+            self.root
+        )
+
+        communication_window.title(
+            "Communication Support"
+        )
+
+        communication_window.geometry(
+            "500x450"
+        )
+
+        communication_window.configure(
+            bg="black"
+        )
+
+        tk.Label(
+            communication_window,
+            text="HOW ARE YOU FEELING?",
+            font=("Arial", 22, "bold"),
+            fg="white",
+            bg="black"
+        ).pack(pady=20)
+
+        options = [
+            "I am happy",
+            "I need help",
+            "I need a break",
+            "I am tired",
+            "I am uncomfortable"
+        ]
+
+        for option in options:
+
+            tk.Button(
+                communication_window,
+                text=option,
+                font=("Arial", 14),
+                width=25,
+                command=lambda text=option:
+                messagebox.showinfo(
+                    "Communication",
+                    text
+                )
+            ).pack(pady=5)
+
+    # ----------------------------------
+    # Close Application
+    # ----------------------------------
+
+    def close(self):
+
+        self.running = False
+
+        if self.cap.isOpened():
+            self.cap.release()
+
+        self.root.destroy()
+
+
+# --------------------------------------
+# Main Program
+# --------------------------------------
+
+if __name__ == "__main__":
+
+    root = tk.Tk()
+
+    app = AssistiveMirror(root)
+
+    root.protocol(
+        "WM_DELETE_WINDOW",
+        app.close
+    )
+
+    root.mainloop()

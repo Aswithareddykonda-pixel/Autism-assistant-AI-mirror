@@ -1,0 +1,82 @@
+When the application starts:
+
+========================================
+       AUTISM ASSISTIVE AI MIRROR
+========================================
+
+        [ CAMERA DISPLAY ]
+
+       Person Detected
+
+Welcome! You are visible in the mirror.
+
+10-08-2026  12:30:15
+
+[Daily Routine] [Calm Mode]
+[Communication] [Exit]
+Simulation 1 — Person Detection
+
+The webcam detects a face.
+
+Camera
+   ↓
+Face detected
+   ↓
+Display:
+"Welcome! You are visible in the mirror."
+
+A rectangle is displayed around the detected face.
+
+Simulation 2 — Daily Routine
+
+Click:
+
+Daily Routine
+
+The system displays:
+
+DAILY ROUTINE
+
+1. Wake Up
+2. Brush Teeth
+3. Have Breakfast
+4. Go to School / Work
+5. Lunch
+6. Relax
+7. Homework / Activity
+8. Dinner
+9. Prepare for Sleep
+Simulation 3 — Calm Mode
+
+Click:
+
+Calm Mode
+
+Output:
+
+              CALM MODE
+
+       Take a slow breath.
+
+       Breathe in for 4 seconds.
+       Hold for 4 seconds.
+       Breathe out for 4 seconds.
+Simulation 4 — Communication
+
+Click:
+
+Communication
+
+The mirror displays:
+
+HOW ARE YOU FEELING?
+
+[I am happy]
+
+[I need help]
+
+[I need a break]
+
+[I am tired]
+
+[I am uncomfortable]
